@@ -5,10 +5,15 @@
  */
 package view;
 
+import dao.UsersDAO;
 import java.awt.Image;
 import java.awt.Toolkit;
-import javax.swing.ImageIcon;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import modelo.Users;
+import procedimientos.Encryptar;
 
 /**
  *
@@ -19,6 +24,9 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    
+    
+    
     public Login() {
         initComponents();
         setTitle("Linda Sonrisa");
@@ -39,7 +47,6 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabelVersion4 = new javax.swing.JLabel();
-        jLabelVersion6 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         txtPassword = new javax.swing.JPasswordField();
@@ -57,12 +64,12 @@ public class Login extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabelVersion10 = new javax.swing.JLabel();
+        jLabelVersion7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
         setIconImages(null);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(800, 500));
 
         jPanel1.setBackground(new java.awt.Color(36, 46, 68));
         jPanel1.setMinimumSize(new java.awt.Dimension(800, 500));
@@ -73,11 +80,6 @@ public class Login extends javax.swing.JFrame {
         jLabelVersion4.setForeground(new java.awt.Color(255, 255, 255));
         jLabelVersion4.setText("USUARIO");
         jPanel1.add(jLabelVersion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, -1, -1));
-
-        jLabelVersion6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabelVersion6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelVersion6.setText("Iniciar Sesión");
-        jPanel1.add(jLabelVersion6, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, -1, -1));
 
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 320, 232, 10));
@@ -122,6 +124,11 @@ public class Login extends javax.swing.JFrame {
         btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSalirMouseClicked(evt);
+            }
+        });
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
             }
         });
         BtnSalir.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 30));
@@ -230,6 +237,11 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        jLabelVersion7.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabelVersion7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelVersion7.setText("Iniciar Sesión");
+        jPanel1.add(jLabelVersion7, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -266,11 +278,33 @@ public class Login extends javax.swing.JFrame {
 
     private void btnEntrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrar2ActionPerformed
         // TODO add your handling code here:
+        String username = txtUsername.getText();
+        char[] password = txtPassword.getPassword();
+        String pass = new String(password);
+        
+        try {
+            String p = Encryptar.encryptar(pass);
+            Users u = (new UsersDAO()).buscarUsername(username);
+            
+            if(username.equals(u.getUsername()) & p.equals(u.getPassword())){
+                Home v = new Home();
+                
+                v.setVisible(true);
+                this.setVisible(false);
+            }else{
+                System.out.println("Error");
+            }
+
+            
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
     }//GEN-LAST:event_btnEntrar2ActionPerformed
 
     private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
+    
     }//GEN-LAST:event_btnSalirMouseClicked
 
     private void jLabelVersion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelVersion1MouseClicked
@@ -279,6 +313,11 @@ public class Login extends javax.swing.JFrame {
         v.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabelVersion1MouseClicked
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     @Override
     public Image getIconImage() {
@@ -333,7 +372,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelVersion10;
     private javax.swing.JLabel jLabelVersion2;
     private javax.swing.JLabel jLabelVersion4;
-    private javax.swing.JLabel jLabelVersion6;
+    private javax.swing.JLabel jLabelVersion7;
     private javax.swing.JLabel jLabelVersion8;
     private javax.swing.JLabel jLabelVersion9;
     private javax.swing.JPanel jPanel1;

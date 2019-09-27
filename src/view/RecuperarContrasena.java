@@ -5,10 +5,13 @@
  */
 package view;
 
+import conexion.ConectarMail;
+import dao.UsersDAO;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import modelo.Users;
 
 /**
  *
@@ -25,7 +28,9 @@ public class RecuperarContrasena extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);    
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);     
+        setVisible(true);  
+        lblError1.setVisible(false);
+        lblexito.setVisible(false);
     }
 
     /**
@@ -45,7 +50,6 @@ public class RecuperarContrasena extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jLabelVersion7 = new javax.swing.JLabel();
-        jLabelVersion4 = new javax.swing.JLabel();
         jLabelVersion6 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         txtUsername = new javax.swing.JTextField();
@@ -55,6 +59,9 @@ public class RecuperarContrasena extends javax.swing.JFrame {
         btnEntrar2 = new javax.swing.JButton();
         PanelSalir = new javax.swing.JPanel();
         btnSalir = new javax.swing.JButton();
+        lblexito = new javax.swing.JLabel();
+        jLabelVersion9 = new javax.swing.JLabel();
+        lblError1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -133,11 +140,6 @@ public class RecuperarContrasena extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jLabelVersion4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabelVersion4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelVersion4.setText("USUARIO o Correo");
-        jPanel1.add(jLabelVersion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, -1, -1));
-
         jLabelVersion6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabelVersion6.setForeground(new java.awt.Color(255, 255, 255));
         jLabelVersion6.setText("Recuperar Contraseña");
@@ -179,6 +181,11 @@ public class RecuperarContrasena extends javax.swing.JFrame {
         jPanel1.add(panelVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 270, 90, 40));
 
         PanelEntrar.setBackground(new java.awt.Color(89, 199, 198));
+        PanelEntrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEntrarMouseClicked(evt);
+            }
+        });
         PanelEntrar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnEntrar2.setBackground(new java.awt.Color(255, 153, 153));
@@ -218,6 +225,25 @@ public class RecuperarContrasena extends javax.swing.JFrame {
 
         jPanel1.add(PanelSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 30, 80, 30));
 
+        lblexito.setBackground(new java.awt.Color(153, 255, 102));
+        lblexito.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblexito.setForeground(new java.awt.Color(204, 255, 51));
+        lblexito.setText("Se ha enviado un correo.");
+        lblexito.setToolTipText("");
+        jPanel1.add(lblexito, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 340, -1, -1));
+
+        jLabelVersion9.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabelVersion9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelVersion9.setText("USUARIO o Correo");
+        jPanel1.add(jLabelVersion9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, -1, -1));
+
+        lblError1.setBackground(new java.awt.Color(243, 84, 93));
+        lblError1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblError1.setForeground(new java.awt.Color(243, 84, 93));
+        lblError1.setText("Hemos tenido un problema. Intente Nuevamente.");
+        lblError1.setToolTipText("");
+        jPanel1.add(lblError1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 340, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -249,6 +275,53 @@ public class RecuperarContrasena extends javax.swing.JFrame {
 
     private void btnEntrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrar2ActionPerformed
         // TODO add your handling code here:
+                System.out.println("Entro envio");
+                
+                
+        String [] abecedario = {"1","2","3","4","5","6","7","8","9","0" };
+        String texto = "";
+        for (int i = 0; i < 4; i++) {
+            int numRandon = (int) Math.round(Math.random() * 9 ) ;
+            texto += abecedario[numRandon];
+        }
+        
+        try {
+            if(txtUsername.getText().length()>0){
+//                int intIndex = txtUsername.getText().toLowerCase().indexOf("@gmail.com");
+                int intIndex =1 ;
+                if(intIndex!=-1){
+                    String correo = txtUsername.getText();
+                    
+                    Users u = (new UsersDAO()).buscarCorreo(correo);
+                    
+                    if(u != null){
+                        int estado = (new UsersDAO()).actualizarCorreo(correo, texto);
+                        if(estado==1){
+                            String asunto = "Recuperación Contraseña";
+                            String titulo = "Estimado " + u.getNombres() + " " + u.getApellidos();
+                            String mensaje = "   Su USUARIO es: <strong>"+u.getUsername()+"</strong>" ;     
+                            mensaje += "<br>   Su nueva con CONTRASEÑA es: <strong>"+texto+"</strong>" ;   
+                            String mensajeFinal = new ConectarMail().formatoCorreoInterno(titulo, mensaje);
+                            int estado2 = new ConectarMail().enviarMensaje(correo, "", "",mensajeFinal,asunto, 0);
+                            lblError1.setVisible(false);
+                            lblexito.setVisible(true);
+                        }else{
+                             lblError1.setVisible(true);
+                            lblexito.setVisible(false);
+                        }
+                    }
+                }else{
+                    lblError1.setVisible(true);
+                    lblexito.setVisible(false);
+                }
+            }
+           
+        } catch (Exception e) {
+            lblexito.setVisible(true);
+            lblError1.setVisible(false);
+            System.out.println("Error envio correo " + e.toString());
+        }
+        
     }//GEN-LAST:event_btnEntrar2ActionPerformed
 
     private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
@@ -262,6 +335,11 @@ public class RecuperarContrasena extends javax.swing.JFrame {
         v.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void PanelEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEntrarMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_PanelEntrarMouseClicked
 
     @Override
     public Image getIconImage() {
@@ -315,15 +393,17 @@ public class RecuperarContrasena extends javax.swing.JFrame {
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelVersion3;
-    private javax.swing.JLabel jLabelVersion4;
     private javax.swing.JLabel jLabelVersion5;
     private javax.swing.JLabel jLabelVersion6;
     private javax.swing.JLabel jLabelVersion7;
+    private javax.swing.JLabel jLabelVersion9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JLabel lblError1;
+    private javax.swing.JLabel lblexito;
     private javax.swing.JPanel panelVolver;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
