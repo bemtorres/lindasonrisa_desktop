@@ -5,88 +5,26 @@
  */
 package modelo;
 
-import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author benja
- */
-@Entity
-@Table(name = "users")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
-    , @NamedQuery(name = "Users.findByIdUser", query = "SELECT u FROM Users u WHERE u.idUser = :idUser")
-    , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
-    , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
-    , @NamedQuery(name = "Users.findByRun", query = "SELECT u FROM Users u WHERE u.run = :run")
-    , @NamedQuery(name = "Users.findByNombres", query = "SELECT u FROM Users u WHERE u.nombres = :nombres")
-    , @NamedQuery(name = "Users.findByApellidos", query = "SELECT u FROM Users u WHERE u.apellidos = :apellidos")
-    , @NamedQuery(name = "Users.findByTelefono", query = "SELECT u FROM Users u WHERE u.telefono = :telefono")
-    , @NamedQuery(name = "Users.findByIdTipoUser", query = "SELECT u FROM Users u WHERE u.idTipoUser = :idTipoUser")
-    , @NamedQuery(name = "Users.findByCorreo", query = "SELECT u FROM Users u WHERE u.correo = :correo")
-    , @NamedQuery(name = "Users.findByCorreoVerifiedAt", query = "SELECT u FROM Users u WHERE u.correoVerifiedAt = :correoVerifiedAt")
-    , @NamedQuery(name = "Users.findByRememberToken", query = "SELECT u FROM Users u WHERE u.rememberToken = :rememberToken")
-    , @NamedQuery(name = "Users.findByCreatedAt", query = "SELECT u FROM Users u WHERE u.createdAt = :createdAt")
-    , @NamedQuery(name = "Users.findByUpdatedAt", query = "SELECT u FROM Users u WHERE u.updatedAt = :updatedAt")
-    , @NamedQuery(name = "Users.findByActivo", query = "SELECT u FROM Users u WHERE u.activo = :activo")})
-public class Users implements Serializable {
+public class Users {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_user")
+   
+    
     private int idUser;
-    @Basic(optional = false)
-    @Column(name = "username")
     private String username;
-    @Basic(optional = false)
-    @Column(name = "password")
     private String password;
-    @Basic(optional = false)
-    @Column(name = "run")
     private String run;
-    @Basic(optional = false)
-    @Column(name = "nombres")
     private String nombres;
-    @Basic(optional = false)
-    @Column(name = "apellidos")
     private String apellidos;
-    @Column(name = "telefono")
     private String telefono;
-    @Basic(optional = false)
-    @Column(name = "id_tipo_user")
     private int idTipoUser;
-    @Basic(optional = false)
-    @Column(name = "correo")
     private String correo;
-    @Column(name = "correo_verified_at")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date correoVerifiedAt;
-    @Column(name = "remember_token")
     private String rememberToken;
-    @Column(name = "created_at")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-    @Column(name = "updated_at")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
-    @Basic(optional = false)
-    @Column(name = "activo")
     private int activo;
 
     public Users() {

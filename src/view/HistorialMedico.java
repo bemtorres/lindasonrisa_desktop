@@ -38,7 +38,8 @@ public class HistorialMedico extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelVersion8 = new javax.swing.JLabel();
+        jLabelVersion10 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         btnPaciente = new javax.swing.JButton();
@@ -48,8 +49,8 @@ public class HistorialMedico extends javax.swing.JFrame {
         btnConfiguracion = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JPanel();
         btnSalir = new javax.swing.JButton();
-        jLabelVersion8 = new javax.swing.JLabel();
-        jLabelVersion10 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -67,13 +68,27 @@ public class HistorialMedico extends javax.swing.JFrame {
         setIconImage(getIconImage());
         setIconImages(null);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setForeground(new java.awt.Color(36, 46, 68));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/200 200.png"))); // NOI18N
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+        jLabelVersion8.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabelVersion8.setForeground(new java.awt.Color(87, 89, 98));
+        jLabelVersion8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelVersion8.setText("Sistema de Gestión");
+        jPanel2.add(jLabelVersion8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 246, 35));
+
+        jLabelVersion10.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabelVersion10.setForeground(new java.awt.Color(87, 89, 98));
+        jLabelVersion10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelVersion10.setText("Odontológica");
+        jPanel2.add(jLabelVersion10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 200, 35));
 
         jPanel4.setBackground(new java.awt.Color(89, 199, 198));
         jPanel4.setForeground(new java.awt.Color(89, 199, 198));
@@ -91,6 +106,7 @@ public class HistorialMedico extends javax.swing.JFrame {
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 10, 720));
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setPreferredSize(new java.awt.Dimension(89, 19));
 
         btnPaciente.setBackground(new java.awt.Color(243, 84, 93));
@@ -128,8 +144,9 @@ public class HistorialMedico extends javax.swing.JFrame {
             .addComponent(btnPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 180, 50));
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 180, 50));
 
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setPreferredSize(new java.awt.Dimension(89, 19));
 
         btnHistorial.setBackground(new java.awt.Color(243, 84, 93));
@@ -168,7 +185,9 @@ public class HistorialMedico extends javax.swing.JFrame {
             .addComponent(btnHistorial, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 180, 50));
+        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 180, 50));
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
         btnConfiguracion.setBackground(new java.awt.Color(243, 84, 93));
         btnConfiguracion.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -201,7 +220,7 @@ public class HistorialMedico extends javax.swing.JFrame {
             .addComponent(btnConfiguracion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 492, 180, 50));
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, 180, 50));
 
         btnCerrarSesion.setBackground(new java.awt.Color(243, 84, 93));
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -240,19 +259,13 @@ public class HistorialMedico extends javax.swing.JFrame {
             .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
         );
 
-        jPanel2.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 630, -1, -1));
+        jPanel2.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 630, -1, -1));
 
-        jLabelVersion8.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabelVersion8.setForeground(new java.awt.Color(87, 89, 98));
-        jLabelVersion8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelVersion8.setText("Sistema de Gestión");
-        jPanel2.add(jLabelVersion8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 246, 35));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/200 200.png"))); // NOI18N
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
-        jLabelVersion10.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabelVersion10.setForeground(new java.awt.Color(87, 89, 98));
-        jLabelVersion10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelVersion10.setText("Odontológica");
-        jPanel2.add(jLabelVersion10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 200, 35));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/footer-bg.jpg"))); // NOI18N
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 260, 720));
 
         jPanel9.setBackground(new java.awt.Color(241, 241, 241));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -410,52 +423,6 @@ public class HistorialMedico extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnCerrarSesionMouseClicked
-
-    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
-
-    }//GEN-LAST:event_btnSalirMouseClicked
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
-        Login v = new Login();
-        v.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnSalirActionPerformed
-
-    private void btnConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfiguracionMouseClicked
-
-    private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfiguracionActionPerformed
-
-    private void btnHistorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistorialMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHistorialMouseClicked
-
-    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
-        // TODO add your handling code here:
-        HistorialMedico v = new HistorialMedico();
-        v.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnHistorialActionPerformed
-
-    private void btnPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPacienteMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPacienteMouseClicked
-
-    private void btnPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacienteActionPerformed
-        // TODO add your handling code here:
-        Home v = new Home();
-        v.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnPacienteActionPerformed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
     
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -483,6 +450,57 @@ public class HistorialMedico extends javax.swing.JFrame {
         }
     
     }//GEN-LAST:event_txtRutKeyTyped
+
+    private void btnPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPacienteMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPacienteMouseClicked
+
+    private void btnPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacienteActionPerformed
+        // TODO add your handling code here:
+        Home v = new Home();
+        v.nombre = this.nombre;
+        v.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPacienteActionPerformed
+
+    private void btnHistorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistorialMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHistorialMouseClicked
+
+    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
+        // TODO add your handling code here:
+        HistorialMedico v = new HistorialMedico();
+        v.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnHistorialActionPerformed
+
+    private void btnConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConfiguracionMouseClicked
+
+    private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConfiguracionActionPerformed
+
+    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
+
+    }//GEN-LAST:event_btnSalirMouseClicked
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        Login v = new Login();
+        v.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnCerrarSesionMouseClicked
+    String nombre;
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowActivated
 
     @Override
     public Image getIconImage() {
@@ -537,6 +555,7 @@ public class HistorialMedico extends javax.swing.JFrame {
     private javax.swing.JButton btnPaciente;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelVersion10;
     private javax.swing.JLabel jLabelVersion4;
     private javax.swing.JLabel jLabelVersion7;
