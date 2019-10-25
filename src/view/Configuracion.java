@@ -9,15 +9,19 @@ import dao.FichaClienteDAO;
 import dao.HorarioDAO;
 import dao.OdontologoDAO;
 import dao.ReservaHoraDAO;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import modelo.Odontologo;
 import modelo.ReservaHora;
 import procedimientos.ColorearFilas;
+import procedimientos.Encryptar;
 
 /**
  *
@@ -176,6 +180,11 @@ public class Configuracion extends javax.swing.JFrame {
                 txtNuevo2FocusGained(evt);
             }
         });
+        txtNuevo2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNuevo2KeyTyped(evt);
+            }
+        });
         jPanel2.add(txtNuevo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, 290, 30));
 
         txtPassActual.setForeground(new java.awt.Color(119, 119, 119));
@@ -186,6 +195,11 @@ public class Configuracion extends javax.swing.JFrame {
                 txtPassActualFocusGained(evt);
             }
         });
+        txtPassActual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPassActualKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtPassActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 290, 30));
 
         txtNuevo1.setForeground(new java.awt.Color(119, 119, 119));
@@ -194,6 +208,11 @@ public class Configuracion extends javax.swing.JFrame {
         txtNuevo1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtNuevo1FocusGained(evt);
+            }
+        });
+        txtNuevo1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNuevo1KeyTyped(evt);
             }
         });
         jPanel2.add(txtNuevo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 290, 30));
@@ -320,7 +339,7 @@ public class Configuracion extends javax.swing.JFrame {
 
     private void lblAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgendaMouseClicked
         // TODO add your handling code here:
-        Calendario i = new Calendario();
+        Configuracion i = new Configuracion();
         i.id_odontologo = id_odontologo;
         i.setVisible(true);
         this.setVisible(false);
@@ -350,23 +369,96 @@ public class Configuracion extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnCalendarioDisaMouseClicked
 
-    private void txtNuevo2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevo2FocusGained
-        // TODO add your handling code here:
-        txtNuevo2.setText("");
-    }//GEN-LAST:event_txtNuevo2FocusGained
-
-    private void txtPassActualFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPassActualFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPassActualFocusGained
-
-    private void txtNuevo1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevo1FocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNuevo1FocusGained
-
     private void btnGuardarCambiosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarCambiosMouseClicked
         // TODO add your handling code here:
 
+        if(txtPassActual.getPassword()!=null && txtNuevo1.getPassword()!=null && txtNuevo2.getPassword()!=null){
+            
+            try {
+                char[] passwordActual = txtPassActual.getPassword();
+                String passwordActual1 = new String(passwordActual);
+                String p1 = Encryptar.encryptar(passwordActual1);
+                
+                char[] passwordNuevo1 = txtNuevo1.getPassword();
+                String passwordNuevo11 = new String(passwordNuevo1);
+                String p2 = Encryptar.encryptar(passwordNuevo11);
+                
+                char[] passwordNuevo2 = txtNuevo2.getPassword();
+                String passwordActual12 = new String(passwordNuevo2);
+                String p3 = Encryptar.encryptar(passwordActual12);
+                
+                
+                
+                Odontologo o = (new OdontologoDAO()).buscar(id_odontologo);
+                if(o.getPassword().equals(p1)){
+                    if(p2.equals(p3)){
+                        if(p1.equals(p2)){
+                            o.setPassword(p2);
+                            int estado = (new OdontologoDAO()).modificar(o);
+                            if(estado==1){
+                                
+                            }else{
+                                // no se pudo codificar
+                            }
+                        }else{
+                            //son la misma clave
+                        }
+                    }else{
+                        // No son iguales
+                    }
+                }else{
+//                no son la misma
+                }
+            } catch (NoSuchAlgorithmException ex) {
+                // un problema muy grande
+                Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            // no hay nada
+        }
+        
+       
     }//GEN-LAST:event_btnGuardarCambiosMouseClicked
+
+    private void txtPassActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassActualKeyTyped
+        // TODO add your handling code here:
+        char[] passwordActual = txtPassActual.getPassword();
+        String p1 = new String(passwordActual);
+        if (p1.length() >= 8 ) // limit textfield to 3 characters
+            evt.consume(); 
+    }//GEN-LAST:event_txtPassActualKeyTyped
+
+    private void txtNuevo1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevo1KeyTyped
+        // TODO add your handling code here:
+        
+        char[] passwordActual = txtNuevo1.getPassword();
+        String p1 = new String(passwordActual);
+        if (p1.length() >= 8 ) // limit textfield to 3 characters
+            evt.consume(); 
+    }//GEN-LAST:event_txtNuevo1KeyTyped
+
+    private void txtNuevo2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevo2KeyTyped
+        // TODO add your handling code here:
+        char[] passwordActual = txtNuevo2.getPassword();
+        String p1 = new String(passwordActual);
+        if (p1.length() >= 8 ) // limit textfield to 3 characters
+            evt.consume(); 
+    }//GEN-LAST:event_txtNuevo2KeyTyped
+
+    private void txtNuevo2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevo2FocusGained
+        // TODO add your handling code here:
+         txtNuevo2.setText("");
+    }//GEN-LAST:event_txtNuevo2FocusGained
+
+    private void txtNuevo1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevo1FocusGained
+        // TODO add your handling code here:
+        txtNuevo1.setText("");
+    }//GEN-LAST:event_txtNuevo1FocusGained
+
+    private void txtPassActualFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPassActualFocusGained
+        // TODO add your handling code here:
+        txtPassActual.setText("");
+    }//GEN-LAST:event_txtPassActualFocusGained
 
     /**
      * @param args the command line arguments

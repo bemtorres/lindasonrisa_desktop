@@ -21,6 +21,9 @@ import modelo.ReservaHora;
 public class ReservaHoraDAO {
 
     ConectarMysql conn;
+      
+    private ArrayList<ReservaHora> arrayReserva = new ArrayList<>();
+
 
     public ReservaHora buscar(int id) {
         ReservaHora obj = null;
@@ -114,8 +117,7 @@ public class ReservaHoraDAO {
         return arrayReserva;
     }
     
-    private ArrayList<ReservaHora> arrayReserva = new ArrayList<>();
-
+  
     public ArrayList mostrarDatos() {
         try {
 
@@ -210,7 +212,7 @@ public class ReservaHoraDAO {
             conn = new ConectarMysql();
             Connection connection = conn.getConnection();
             Statement statement = connection.createStatement();
-            String consultaSQL = "UPDATE reservar_hora SET id_estado_reserva=" + r.getId_estado_reserva() + ", comentario='" + r.getComentario() + "' WHERE id_reservar_hora=" + r.getId_reservar_hora() + ";";
+            String consultaSQL = "UPDATE reservar_hora SET id_estado_reserva=" + r.getId_estado_reserva() + ", id_odontologo="+r.getId_odontologo() +",comentario='" + r.getComentario() + "' WHERE id_reservar_hora=" + r.getId_reservar_hora() + ";";
             results = statement.executeUpdate(consultaSQL);
 
             connection.close();
@@ -230,7 +232,7 @@ public class ReservaHoraDAO {
             conn = new ConectarMysql();
             Connection connection = conn.getConnection();
             Statement statement = connection.createStatement();
-            String consultaSQL = "UPDATE reservar_hora SET id_estado_reserva=" + r.getId_estado_reserva() + " WHERE id_reservar_hora=" + r.getId_reservar_hora() + ";";
+            String consultaSQL = "UPDATE reservar_hora SET id_estado_reserva=" + r.getId_estado_reserva() + ", id_odontologo="+r.getId_odontologo() + " WHERE id_reservar_hora=" + r.getId_reservar_hora() + ";";
             results = statement.executeUpdate(consultaSQL);
 
             connection.close();

@@ -9,8 +9,10 @@ import dao.FichaClienteDAO;
 import dao.HorarioDAO;
 import dao.OdontologoDAO;
 import dao.ReservaHoraDAO;
+import dao.ServicioDAO;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.FichaCliente;
 import modelo.Odontologo;
@@ -28,17 +30,17 @@ public class HistorialMedico extends javax.swing.JFrame {
      */
     public int id_odontologo;
     public Odontologo odontologo;
-    
+
     //Colores
     ColorearFilas colores = new ColorearFilas();
-    
+
     public HistorialMedico() {
         initComponents();
         setTitle("Linda Sonrisa");
         setLocationRelativeTo(null);
-        setResizable(false);    
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);              
+        setVisible(true);
     }
 
     /**
@@ -167,6 +169,11 @@ public class HistorialMedico extends javax.swing.JFrame {
                 txtRutMouseClicked(evt);
             }
         });
+        txtRut.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRutKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 240, 40));
 
         TablaReserva.setModel(new javax.swing.table.DefaultTableModel(
@@ -174,7 +181,7 @@ public class HistorialMedico extends javax.swing.JFrame {
 
             },
             new String [] {
-                "#", "Fecha", "Horario", "Run", "Nombre Completo", "Estado", "Odontologo"
+                "#", "Fecha", "Horario", "Servicio", "Estado", "Odontologo", "Comentario"
             }
         ) {
             Class[] types = new Class [] {
@@ -282,12 +289,12 @@ public class HistorialMedico extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    
+
+
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         odontologo = (new OdontologoDAO()).buscar(id_odontologo);
-        lblNombreOdontologo.setText(odontologo.getNombres() + " " + odontologo.getApellidos());
+        lblNombreOdontologo.setText(odontologo.nombreCompleto());
     }//GEN-LAST:event_formWindowActivated
 
     private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
@@ -297,25 +304,31 @@ public class HistorialMedico extends javax.swing.JFrame {
 
     private void TablaReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaReservaMouseClicked
         // hacer doble click
-        DefaultTableModel modelo=(DefaultTableModel) TablaReserva.getModel(); 
-        if(evt.getClickCount()==2){
+        DefaultTableModel modelo = (DefaultTableModel) TablaReserva.getModel();
+        if (evt.getClickCount() == 2) {
 //            JOptionPane.showMessageDialog(rootPane, "has tocado" + TablaReserva.getSelectedRow());
             int x = TablaReserva.getSelectedRow(); //Busco la posicion de la fila
-            int y=0; // 0 es porque se que en la posicion de la columna 0 tengo los rut
+            int y = 0; // 0 es porque se que en la posicion de la columna 0 tengo los rut
 
             int id = (int) modelo.getValueAt(x, y); // Busco el elemento con las coordenadas X,Y
             ReservaHora r = (new ReservaHoraDAO()).buscar(id);
-        
-            System.out.println(r.toString());
+
+            if(r.getComentario()!=null){
+                if(r.getComentario().length()>0){
+                    JOptionPane.showMessageDialog(rootPane, "Comentario: " +r.getComentario() ,"Linda Sonrisa",JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
             
-            Paciente paciente = new Paciente();
-            paciente.id_odontologo = id_odontologo;
-            paciente.id_reservar_hora = r.getId_reservar_hora();
-            paciente.setVisible(true);
-            this.setVisible(false);
             
+//            System.out.println(r.toString());
+//            Paciente paciente = new Paciente();
+//            paciente.id_odontologo = id_odontologo;
+//            paciente.id_reservar_hora = r.getId_reservar_hora();
+//            paciente.setVisible(true);
+//            this.setVisible(false);
+
         }
-        
+
     }//GEN-LAST:event_TablaReservaMouseClicked
 
     private void txtRutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRutMouseClicked
@@ -325,17 +338,36 @@ public class HistorialMedico extends javax.swing.JFrame {
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         // TODO add your handling code here:
-        if(txtRut.getText() != null){
-            if(txtRut.getText().length()>0){
-                FichaCliente cliente = (new FichaClienteDAO()).buscarRut(txtRut.getText());
-                ArrayList<ReservaHora> r = (new ReservaHoraDAO()).buscarIdFicha(cliente.getId_ficha_cliente());
-                lblRun.setText(cliente.getRut());
-                lblNombrePaciente.setText(cliente.getNombreCompleto());
-                
-                actualizarTabla(r);
-                
+        try {
+            if (txtRut.getText() != null) {
+                if (txtRut.getText().length() > 0) {
+                    FichaCliente cliente = (new FichaClienteDAO()).buscarRut(txtRut.getText());
+                    
+                    if(cliente !=null){
+                        ArrayList<ReservaHora> r = (new ReservaHoraDAO()).buscarIdFicha(cliente.getId_ficha_cliente());
+
+                        lblRun.setText(cliente.getRut());
+                        lblNombrePaciente.setText(cliente.getNombreCompleto());
+
+                        if (r.size() > 0) {
+                            actualizarTabla(r);
+                        } else {
+                              JOptionPane.showMessageDialog(rootPane, "No tiene historial","Linda Sonrisa",JOptionPane.INFORMATION_MESSAGE);
+    
+                        }
+                    }else{
+                        //cliente no existe
+                        JOptionPane.showMessageDialog(rootPane, "No se ha econtrado","Linda Sonrisa",JOptionPane.WARNING_MESSAGE);
+    
+                    }                  
+                }
             }
+        } catch (Exception e) {
+            System.out.println("Error -> " + e.toString());
+            JOptionPane.showMessageDialog(rootPane, "No se ha econtrado","Linda Sonrisa",JOptionPane.WARNING_MESSAGE);
+    
         }
+
     }//GEN-LAST:event_btnBuscarMouseClicked
 
     private void btnAgendaHoyDisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgendaHoyDisaMouseClicked
@@ -377,6 +409,23 @@ public class HistorialMedico extends javax.swing.JFrame {
         i.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_lblAgendaMouseClicked
+
+    private void txtRutKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRutKeyTyped
+        // TODO add your handling code here:
+        char caracter = evt.getKeyChar();
+
+//           String p = "1234567890K";
+//        for (int i = 0; i < p.length(); i++) {
+//            if(p.charAt(i) = caracter ){
+//                evt.consume(); 
+//            }
+//        }
+//        
+        // Verificar si la tecla pulsada no es un digito
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b') && (caracter != 'K')) {
+            evt.consume();  // ignorar el evento de teclado
+        }
+    }//GEN-LAST:event_txtRutKeyTyped
 
     /**
      * @param args the command line arguments
@@ -451,32 +500,49 @@ public class HistorialMedico extends javax.swing.JFrame {
     private void actualizarTabla(ArrayList<ReservaHora> arrayReserva) {
         DefaultTableModel modelo = (DefaultTableModel) TablaReserva.getModel();
         modelo.setRowCount(0);
-        
+
         try {
-           
-            
-            Object[] columna = new Object[6];
-            
-            for (ReservaHora r: arrayReserva) {
+
+            Object[] columna = new Object[7];
+
+            for (ReservaHora r : arrayReserva) {
                 columna[0] = r.getId_reservar_hora();
                 columna[1] = r.getFecha_reserva();
                 columna[2] = (new HorarioDAO()).buscar(r.getId_horario()).getHorario();
-                columna[3] = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getRut();
-                columna[4] = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getNombreCompleto();
-                if(r.getId_estado_reserva()==0){
-                    columna[5] = "Cancelado";
-                }else if (r.getId_estado_reserva()==1) {
-                    columna[5] = "Pendiente";
-                }else if(r.getId_estado_reserva()==2){
-                    columna[5] = "Atendido";
-                }else{
-                    columna[5] = "No Asitió";
-                }              
-                
+                columna[3] = (new ServicioDAO()).buscar(r.getId_servicio()).getNombre_servicio();
+                if (r.getId_estado_reserva() == 0) {
+                    columna[4] = "Cancelado";
+                } else if (r.getId_estado_reserva() == 1) {
+                    columna[4] = "Pendiente";
+                } else if (r.getId_estado_reserva() == 2) {
+                    columna[4] = "Atendido";
+                } else {
+                    columna[4] = "No Asistió";
+                }
+                String nombreO = "";
+                try {
+                    if (r.getId_odontologo() > 0) {
+                        nombreO = (new OdontologoDAO()).buscar(r.getId_odontologo()).nombreCompleto();
+                    }
+                } catch (Exception e) {
+                    nombreO = "";
+                }
+                columna[5] = nombreO;
+                String comentario = "";
+                try {
+                    if(r.getComentario()!=null){
+                        if(r.getComentario().length()>0){
+                            comentario = r.getComentario();
+                        }
+                    }
+                } catch (Exception e) {
+                    comentario = "";
+                }
+                columna[6] = comentario;
                 modelo.addRow(columna);
                 TablaReserva.setModel(modelo);
             }
-            
+
 //            TablaReserva.setDefaultRenderer(TablaReserva.getColumnClass(2),colores);
         } catch (Exception ex) {
             System.out.println("Error " + ex.toString());

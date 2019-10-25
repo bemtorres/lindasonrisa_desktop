@@ -410,7 +410,7 @@ public class Inicio extends javax.swing.JFrame {
                 }else if(r.getId_estado_reserva()==2){
                     columna[5] = "Atendido";
                 }else{
-                    columna[5] = "No Asitió";
+                    columna[5] = "No Asistió";
                 }
                 
                 

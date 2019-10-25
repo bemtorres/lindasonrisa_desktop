@@ -94,5 +94,25 @@ public class OdontologoDAO {
         }
         return obj;
     }
+    
+     public int modificar(Odontologo o) {
+        int results = 0;
+        try {
+            conn = new ConectarMysql();
+            Connection connection = conn.getConnection();
+            Statement statement = connection.createStatement();
+            String consultaSQL = "UPDATE odotologo SET password='" + o.getPassword()+ "' WHERE id_odontologo=" + o.getId_odontologo() + ";";
+            results = statement.executeUpdate(consultaSQL);
+
+            connection.close();
+            conn.desconectar();
+        } catch (Exception e) {
+            System.out.println("Error update " + e.toString());
+            return -2;
+        }
+
+        return results;
+
+    }
 
 }

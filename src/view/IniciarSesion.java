@@ -76,6 +76,11 @@ public class IniciarSesion extends javax.swing.JFrame {
                 txtPasswordFocusGained(evt);
             }
         });
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 310, 30));
 
         txtUsername.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -85,6 +90,11 @@ public class IniciarSesion extends javax.swing.JFrame {
         txtUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtUsernameMouseClicked(evt);
+            }
+        });
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyTyped(evt);
             }
         });
         jPanel1.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 310, 30));
@@ -197,6 +207,20 @@ public class IniciarSesion extends javax.swing.JFrame {
         v.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnOlvidadoContrMouseClicked
+
+    private void txtUsernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyTyped
+        // TODO add your handling code here:
+          if (txtUsername.getText().length() >= 9 ) // limit textfield to 3 characters
+            evt.consume(); 
+    }//GEN-LAST:event_txtUsernameKeyTyped
+
+    private void txtPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyTyped
+        // TODO add your handling code here:
+        char[] passwordActual = txtPassword.getPassword();
+        String p1 = new String(passwordActual);
+        if (p1.length() >= 8 ) // limit textfield to 3 characters
+            evt.consume(); 
+    }//GEN-LAST:event_txtPasswordKeyTyped
 
     /**
      * @param args the command line arguments
