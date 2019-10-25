@@ -20,7 +20,7 @@ public class ConectarMysql {
     private static final String user = "root";    
     private static final String password ="";
     private static final String puerto = "3306";   
-    private static final String nombre_bd = "db_lindasonrisa";
+    private static final String nombre_bd = "lindasonrisa";
     
     public static int cont = 0;
     

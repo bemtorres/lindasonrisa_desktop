@@ -5,27 +5,40 @@
  */
 package view;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import javax.swing.ImageIcon;
+import dao.FichaClienteDAO;
+import dao.HorarioDAO;
+import dao.OdontologoDAO;
+import dao.ReservaHoraDAO;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import modelo.FichaCliente;
+import modelo.Odontologo;
+import modelo.ReservaHora;
+import procedimientos.ColorearFilas;
 
 /**
  *
- * @author benja
+ * @author MR-BM
  */
 public class HistorialMedico extends javax.swing.JFrame {
 
     /**
-     * Creates new form Login
+     * Creates new form Inicio
      */
+    public int id_odontologo;
+    public Odontologo odontologo;
+    
+    //Colores
+    ColorearFilas colores = new ColorearFilas();
+    
     public HistorialMedico() {
         initComponents();
         setTitle("Linda Sonrisa");
         setLocationRelativeTo(null);
         setResizable(false);    
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);     
+        setVisible(true);              
     }
 
     /**
@@ -37,477 +50,334 @@ public class HistorialMedico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jLabelVersion8 = new javax.swing.JLabel();
-        jLabelVersion10 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        btnPaciente = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        btnHistorial = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        btnConfiguracion = new javax.swing.JButton();
-        btnCerrarSesion = new javax.swing.JPanel();
-        btnSalir = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jLabelVersion4 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
+        lblNombreOdontologo = new javax.swing.JLabel();
+        logo = new javax.swing.JLabel();
+        btnAgendaHoyDisa = new javax.swing.JLabel();
+        btnCalendarioDisa = new javax.swing.JLabel();
+        btnHistorialM = new javax.swing.JLabel();
+        btnConfiguracion = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JLabel();
+        Vertical1 = new javax.swing.JLabel();
+        Vertical = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         txtRut = new javax.swing.JTextField();
-        BtnEntrar1 = new javax.swing.JPanel();
-        btnBuscar = new javax.swing.JButton();
-        jPanel11 = new javax.swing.JPanel();
-        jLabelVersion7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaReserva = new javax.swing.JTable();
+        lblAgenda = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        lblRun = new javax.swing.JLabel();
+        lblNombrePaciente = new javax.swing.JLabel();
+        Titulo2 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        FondoMedio2 = new javax.swing.JLabel();
+        homeIcon = new javax.swing.JLabel();
+        btnBuscar = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        Titulo = new javax.swing.JLabel();
+        FondoMedio = new javax.swing.JLabel();
+        FondoMedio1 = new javax.swing.JLabel();
+        FondoPrincipal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setIconImage(getIconImage());
-        setIconImages(null);
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setForeground(new java.awt.Color(36, 46, 68));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelVersion8.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabelVersion8.setForeground(new java.awt.Color(87, 89, 98));
-        jLabelVersion8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelVersion8.setText("Sistema de Gestión");
-        jPanel2.add(jLabelVersion8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 246, 35));
+        lblNombreOdontologo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jPanel1.add(lblNombreOdontologo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 140, 20));
 
-        jLabelVersion10.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
-        jLabelVersion10.setForeground(new java.awt.Color(87, 89, 98));
-        jLabelVersion10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelVersion10.setText("Odontológica");
-        jPanel2.add(jLabelVersion10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 200, 35));
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N
+        jPanel1.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 130, -1));
 
-        jPanel4.setBackground(new java.awt.Color(89, 199, 198));
-        jPanel4.setForeground(new java.awt.Color(89, 199, 198));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 10, 720));
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setPreferredSize(new java.awt.Dimension(89, 19));
-
-        btnPaciente.setBackground(new java.awt.Color(243, 84, 93));
-        btnPaciente.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnPaciente.setForeground(new java.awt.Color(87, 89, 98));
-        btnPaciente.setText("Paciente");
-        btnPaciente.setBorder(null);
-        btnPaciente.setBorderPainted(false);
-        btnPaciente.setContentAreaFilled(false);
-        btnPaciente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnPaciente.setMaximumSize(new java.awt.Dimension(89, 19));
-        btnPaciente.setMinimumSize(new java.awt.Dimension(89, 19));
-        btnPaciente.setPreferredSize(new java.awt.Dimension(89, 19));
-        btnPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAgendaHoyDisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAgendaDisa.png"))); // NOI18N
+        btnAgendaHoyDisa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgendaHoyDisa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPacienteMouseClicked(evt);
+                btnAgendaHoyDisaMouseClicked(evt);
             }
         });
-        btnPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPacienteActionPerformed(evt);
-            }
-        });
+        jPanel1.add(btnAgendaHoyDisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 270, 60));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 180, 50));
-
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setPreferredSize(new java.awt.Dimension(89, 19));
-
-        btnHistorial.setBackground(new java.awt.Color(243, 84, 93));
-        btnHistorial.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnHistorial.setForeground(new java.awt.Color(87, 89, 98));
-        btnHistorial.setText("Historial Medico");
-        btnHistorial.setActionCommand("");
-        btnHistorial.setBorder(null);
-        btnHistorial.setBorderPainted(false);
-        btnHistorial.setContentAreaFilled(false);
-        btnHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnHistorial.setMaximumSize(new java.awt.Dimension(89, 19));
-        btnHistorial.setMinimumSize(new java.awt.Dimension(89, 19));
-        btnHistorial.setPreferredSize(new java.awt.Dimension(89, 19));
-        btnHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCalendarioDisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnCalendarioDisabled.png"))); // NOI18N
+        btnCalendarioDisa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCalendarioDisa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnHistorialMouseClicked(evt);
+                btnCalendarioDisaMouseClicked(evt);
             }
         });
-        btnHistorial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHistorialActionPerformed(evt);
+        jPanel1.add(btnCalendarioDisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 270, 60));
+
+        btnHistorialM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnHistorial.png"))); // NOI18N
+        btnHistorialM.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnHistorialM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHistorialMMouseClicked(evt);
             }
         });
+        jPanel1.add(btnHistorialM, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 270, 50));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnHistorial, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 180, 50));
-
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-
-        btnConfiguracion.setBackground(new java.awt.Color(243, 84, 93));
-        btnConfiguracion.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnConfiguracion.setForeground(new java.awt.Color(87, 89, 98));
-        btnConfiguracion.setText("Configuración");
-        btnConfiguracion.setActionCommand("");
-        btnConfiguracion.setBorder(null);
-        btnConfiguracion.setBorderPainted(false);
-        btnConfiguracion.setContentAreaFilled(false);
-        btnConfiguracion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/configuracion.png"))); // NOI18N
+        btnConfiguracion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConfiguracion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnConfiguracionMouseClicked(evt);
             }
         });
-        btnConfiguracion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfiguracionActionPerformed(evt);
-            }
-        });
+        jPanel1.add(btnConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 270, 50));
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnConfiguracion, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnConfiguracion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel2.setText("Odontólogo");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 140, 20));
 
-        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, 180, 50));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(243, 84, 93));
-        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCerrarSesionMouseClicked(evt);
-            }
-        });
-
-        btnSalir.setBackground(new java.awt.Color(243, 84, 93));
-        btnSalir.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalir.setText("Cerrar Sesión");
-        btnSalir.setBorder(null);
-        btnSalir.setBorderPainted(false);
-        btnSalir.setContentAreaFilled(false);
-        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/salir.png"))); // NOI18N
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSalirMouseClicked(evt);
             }
         });
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
+        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 620, 270, 50));
 
-        javax.swing.GroupLayout btnCerrarSesionLayout = new javax.swing.GroupLayout(btnCerrarSesion);
-        btnCerrarSesion.setLayout(btnCerrarSesionLayout);
-        btnCerrarSesionLayout.setHorizontalGroup(
-            btnCerrarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-        );
-        btnCerrarSesionLayout.setVerticalGroup(
-            btnCerrarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-        );
+        Vertical1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vertical.png"))); // NOI18N
+        jPanel1.add(Vertical1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 640));
 
-        jPanel2.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 630, -1, -1));
+        Vertical.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vertical.png"))); // NOI18N
+        jPanel1.add(Vertical, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, -1, 240));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/200 200.png"))); // NOI18N
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 720));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/footer-bg.jpg"))); // NOI18N
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 260, 720));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel9.setBackground(new java.awt.Color(241, 241, 241));
-        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jPanel1.setBackground(new java.awt.Color(36, 46, 68));
-        jPanel1.setForeground(new java.awt.Color(36, 46, 68));
-
-        jLabelVersion4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabelVersion4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelVersion4.setText("Run Paciente");
-
-        jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
-
-        txtRut.setBackground(new java.awt.Color(36, 46, 68));
         txtRut.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtRut.setForeground(new java.awt.Color(255, 255, 255));
-        txtRut.setText("19000333K");
+        txtRut.setForeground(new java.awt.Color(119, 119, 119));
+        txtRut.setText("Rut Sin puntos , ni Guión (19000000K)");
         txtRut.setBorder(null);
         txtRut.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtRutMouseClicked(evt);
             }
         });
-        txtRut.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtRutKeyTyped(evt);
+        jPanel2.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 240, 40));
+
+        TablaReserva.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "#", "Fecha", "Horario", "Run", "Nombre Completo", "Estado", "Odontologo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-
-        BtnEntrar1.setBackground(new java.awt.Color(89, 199, 198));
-        BtnEntrar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnBuscar.setBackground(new java.awt.Color(255, 153, 153));
-        btnBuscar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBuscar.setText("Buscar");
-        btnBuscar.setBorder(null);
-        btnBuscar.setBorderPainted(false);
-        btnBuscar.setContentAreaFilled(false);
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+        TablaReserva.setFocusable(false);
+        TablaReserva.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        TablaReserva.setRowHeight(25);
+        TablaReserva.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaReservaMouseClicked(evt);
             }
         });
-        BtnEntrar1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 40));
+        jScrollPane1.setViewportView(TablaReserva);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelVersion4)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnEntrar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
-                .addComponent(jLabelVersion4)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(BtnEntrar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
-        );
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 900, 350));
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 839, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
-                .addGap(44, 44, 44))
-        );
+        lblAgenda.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblAgenda.setForeground(new java.awt.Color(68, 68, 68));
+        lblAgenda.setText("Historial Médico");
+        lblAgenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAgendaMouseClicked(evt);
+            }
+        });
+        jPanel2.add(lblAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 70, 100, 20));
 
-        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 900, 600));
+        jSeparator1.setForeground(new java.awt.Color(68, 68, 68));
+        jSeparator1.setToolTipText("");
+        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 90, 100, 10));
 
-        jPanel11.setBackground(new java.awt.Color(89, 199, 198));
-        jPanel11.setForeground(new java.awt.Color(89, 199, 198));
+        lblRun.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jPanel2.add(lblRun, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 190, 250, 30));
 
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
-        );
+        lblNombrePaciente.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jPanel2.add(lblNombrePaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 160, 240, 30));
 
-        jPanel9.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 0, 20, 720));
+        Titulo2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        Titulo2.setForeground(new java.awt.Color(68, 68, 68));
+        Titulo2.setText("Información del Paciente");
+        jPanel2.add(Titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 300, 30));
 
-        jLabelVersion7.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
-        jLabelVersion7.setForeground(new java.awt.Color(87, 89, 98));
-        jLabelVersion7.setText("Historial Paciente");
-        jPanel9.add(jLabelVersion7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 410, 60));
+        jSeparator4.setForeground(new java.awt.Color(68, 68, 68));
+        jSeparator4.setToolTipText("");
+        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, 230, 10));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel9.setText("Nombre Paciente:");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 130, 30));
+
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel5.setText("Run:");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 40, 30));
+
+        FondoMedio2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondo.png"))); // NOI18N
+        FondoMedio2.setText("jLabel1");
+        jPanel2.add(FondoMedio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, 420, 110));
+
+        homeIcon.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        homeIcon.setForeground(new java.awt.Color(68, 68, 68));
+        homeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/home.png"))); // NOI18N
+        jPanel2.add(homeIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 60, 60, 60));
+
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnBuscar.png"))); // NOI18N
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 110, 60));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/rutPaciente.png"))); // NOI18N
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 290, 100));
+
+        Titulo.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        Titulo.setForeground(new java.awt.Color(68, 68, 68));
+        Titulo.setText("Historial Médico");
+        jPanel2.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 390, 60));
+
+        FondoMedio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondo.png"))); // NOI18N
+        FondoMedio.setText("jLabel1");
+        jPanel2.add(FondoMedio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 1000, 440));
+
+        FondoMedio1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondo.png"))); // NOI18N
+        FondoMedio1.setText("jLabel1");
+        jPanel2.add(FondoMedio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 440, 110));
+
+        FondoPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondoCompleto.png"))); // NOI18N
+        jPanel2.add(FondoPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1089, 800));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 1010, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
     
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        odontologo = (new OdontologoDAO()).buscar(id_odontologo);
+        lblNombreOdontologo.setText(odontologo.getNombres() + " " + odontologo.getApellidos());
+    }//GEN-LAST:event_formWindowActivated
+
+    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirMouseClicked
+
+    private void TablaReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaReservaMouseClicked
+        // hacer doble click
+        DefaultTableModel modelo=(DefaultTableModel) TablaReserva.getModel(); 
+        if(evt.getClickCount()==2){
+//            JOptionPane.showMessageDialog(rootPane, "has tocado" + TablaReserva.getSelectedRow());
+            int x = TablaReserva.getSelectedRow(); //Busco la posicion de la fila
+            int y=0; // 0 es porque se que en la posicion de la columna 0 tengo los rut
+
+            int id = (int) modelo.getValueAt(x, y); // Busco el elemento con las coordenadas X,Y
+            ReservaHora r = (new ReservaHoraDAO()).buscar(id);
+        
+            System.out.println(r.toString());
+            
+            Paciente paciente = new Paciente();
+            paciente.id_odontologo = id_odontologo;
+            paciente.id_reservar_hora = r.getId_reservar_hora();
+            paciente.setVisible(true);
+            this.setVisible(false);
+            
+        }
+        
+    }//GEN-LAST:event_TablaReservaMouseClicked
 
     private void txtRutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRutMouseClicked
         // TODO add your handling code here:
         txtRut.setText("");
     }//GEN-LAST:event_txtRutMouseClicked
 
-    private void txtRutKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRutKeyTyped
+    private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         // TODO add your handling code here:
-        char caracter = evt.getKeyChar();
-        
-//           String p = "1234567890K";
-//        for (int i = 0; i < p.length(); i++) {
-//            if(p.charAt(i) = caracter ){
-//                evt.consume(); 
-//            }
-//        }
-//        
-        // Verificar si la tecla pulsada no es un digito
-        if(((caracter < '0') || (caracter > '9')) && (caracter != '\b') && (caracter !='K') )
-        {
-          evt.consume();  // ignorar el evento de teclado
+        if(txtRut.getText() != null){
+            if(txtRut.getText().length()>0){
+                FichaCliente cliente = (new FichaClienteDAO()).buscarRut(txtRut.getText());
+                ArrayList<ReservaHora> r = (new ReservaHoraDAO()).buscarIdFicha(cliente.getId_ficha_cliente());
+                lblRun.setText(cliente.getRut());
+                lblNombrePaciente.setText(cliente.getNombreCompleto());
+                
+                actualizarTabla(r);
+                
+            }
         }
-    
-    }//GEN-LAST:event_txtRutKeyTyped
+    }//GEN-LAST:event_btnBuscarMouseClicked
 
-    private void btnPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPacienteMouseClicked
+    private void btnAgendaHoyDisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgendaHoyDisaMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnPacienteMouseClicked
-
-    private void btnPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacienteActionPerformed
-        // TODO add your handling code here:
-        Home v = new Home();
-        v.nombre = this.nombre;
-        v.setVisible(true);
+        Inicio i = new Inicio();
+        i.id_odontologo = id_odontologo;
+        i.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnPacienteActionPerformed
+    }//GEN-LAST:event_btnAgendaHoyDisaMouseClicked
 
-    private void btnHistorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistorialMouseClicked
+    private void btnHistorialMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistorialMMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnHistorialMouseClicked
-
-    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
-        // TODO add your handling code here:
-        HistorialMedico v = new HistorialMedico();
-        v.setVisible(true);
+        HistorialMedico i = new HistorialMedico();
+        i.id_odontologo = id_odontologo;
+        i.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnHistorialActionPerformed
+    }//GEN-LAST:event_btnHistorialMMouseClicked
+
+    private void btnCalendarioDisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalendarioDisaMouseClicked
+        // TODO add your handling code here:
+        Calendario i = new Calendario();
+        i.id_odontologo = id_odontologo;
+        i.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCalendarioDisaMouseClicked
 
     private void btnConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseClicked
         // TODO add your handling code here:
+        Configuracion i = new Configuracion();
+        i.id_odontologo = id_odontologo;
+        i.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnConfiguracionMouseClicked
 
-    private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
+    private void lblAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgendaMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfiguracionActionPerformed
-
-    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
-
-    }//GEN-LAST:event_btnSalirMouseClicked
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
-        Login v = new Login();
-        v.setVisible(true);
+        HistorialMedico i = new HistorialMedico();
+        i.id_odontologo = id_odontologo;
+        i.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnSalirActionPerformed
+    }//GEN-LAST:event_lblAgendaMouseClicked
 
-    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnCerrarSesionMouseClicked
-    String nombre;
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowActivated
-
-    @Override
-    public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().
-        getImage(ClassLoader.getSystemResource("img/200 200.png"));
-        return retValue;
-    }
     /**
      * @param args the command line arguments
      */
@@ -535,8 +405,6 @@ public class HistorialMedico extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -547,31 +415,71 @@ public class HistorialMedico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel BtnEntrar1;
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JPanel btnCerrarSesion;
-    private javax.swing.JButton btnConfiguracion;
-    private javax.swing.JButton btnHistorial;
-    private javax.swing.JButton btnPaciente;
-    private javax.swing.JButton btnSalir;
+    private javax.swing.JLabel FondoMedio;
+    private javax.swing.JLabel FondoMedio1;
+    private javax.swing.JLabel FondoMedio2;
+    private javax.swing.JLabel FondoPrincipal;
+    private javax.swing.JTable TablaReserva;
+    private javax.swing.JLabel Titulo;
+    private javax.swing.JLabel Titulo2;
+    private javax.swing.JLabel Vertical;
+    private javax.swing.JLabel Vertical1;
+    private javax.swing.JLabel btnAgendaHoyDisa;
+    private javax.swing.JLabel btnBuscar;
+    private javax.swing.JLabel btnCalendarioDisa;
+    private javax.swing.JLabel btnConfiguracion;
+    private javax.swing.JLabel btnHistorialM;
+    private javax.swing.JLabel btnSalir;
+    private javax.swing.JLabel homeIcon;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelVersion10;
-    private javax.swing.JLabel jLabelVersion4;
-    private javax.swing.JLabel jLabelVersion7;
-    private javax.swing.JLabel jLabelVersion8;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblAgenda;
+    private javax.swing.JLabel lblNombreOdontologo;
+    private javax.swing.JLabel lblNombrePaciente;
+    private javax.swing.JLabel lblRun;
+    private javax.swing.JLabel logo;
     private javax.swing.JTextField txtRut;
     // End of variables declaration//GEN-END:variables
+
+    private void actualizarTabla(ArrayList<ReservaHora> arrayReserva) {
+        DefaultTableModel modelo = (DefaultTableModel) TablaReserva.getModel();
+        modelo.setRowCount(0);
+        
+        try {
+           
+            
+            Object[] columna = new Object[6];
+            
+            for (ReservaHora r: arrayReserva) {
+                columna[0] = r.getId_reservar_hora();
+                columna[1] = r.getFecha_reserva();
+                columna[2] = (new HorarioDAO()).buscar(r.getId_horario()).getHorario();
+                columna[3] = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getRut();
+                columna[4] = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getNombreCompleto();
+                if(r.getId_estado_reserva()==0){
+                    columna[5] = "Cancelado";
+                }else if (r.getId_estado_reserva()==1) {
+                    columna[5] = "Pendiente";
+                }else if(r.getId_estado_reserva()==2){
+                    columna[5] = "Atendido";
+                }else{
+                    columna[5] = "No Asitió";
+                }              
+                
+                modelo.addRow(columna);
+                TablaReserva.setModel(modelo);
+            }
+            
+//            TablaReserva.setDefaultRenderer(TablaReserva.getColumnClass(2),colores);
+        } catch (Exception ex) {
+            System.out.println("Error " + ex.toString());
+        }
+    }
 }

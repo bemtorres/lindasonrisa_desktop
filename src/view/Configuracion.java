@@ -23,7 +23,7 @@ import procedimientos.ColorearFilas;
  *
  * @author MR-BM
  */
-public class Inicio extends javax.swing.JFrame {
+public class Configuracion extends javax.swing.JFrame {
 
     /**
      * Creates new form Inicio
@@ -34,16 +34,13 @@ public class Inicio extends javax.swing.JFrame {
     //Colores
     ColorearFilas colores = new ColorearFilas();
     
-    public Inicio() {
+    public Configuracion() {
         initComponents();
         setTitle("Linda Sonrisa");
         setLocationRelativeTo(null);
         setResizable(false);    
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-        
-        actualizarTabla();
-        
+        setVisible(true);        
     }
 
     /**
@@ -58,10 +55,8 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblNombreOdontologo = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
-        btnAgendaHoy = new javax.swing.JLabel();
         btnAgendaHoyDisa = new javax.swing.JLabel();
         btnCalendarioDisa = new javax.swing.JLabel();
-        btnCalendario = new javax.swing.JLabel();
         btnHistorialM1 = new javax.swing.JLabel();
         btnHistorialM = new javax.swing.JLabel();
         btnConfiguracion = new javax.swing.JLabel();
@@ -70,13 +65,28 @@ public class Inicio extends javax.swing.JFrame {
         Vertical1 = new javax.swing.JLabel();
         Vertical = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TablaReserva = new javax.swing.JTable();
+        txtNuevo2 = new javax.swing.JPasswordField();
+        txtPassActual = new javax.swing.JPasswordField();
+        txtNuevo1 = new javax.swing.JPasswordField();
         lblAgenda = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btnGuardarCambios = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         homeIcon = new javax.swing.JLabel();
+        Titulo2 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lblCorreo = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        lblRun = new javax.swing.JLabel();
+        lblNombreOdo = new javax.swing.JLabel();
+        FondoMedio3 = new javax.swing.JLabel();
         Titulo = new javax.swing.JLabel();
-        FondoMedio = new javax.swing.JLabel();
         FondoMedio1 = new javax.swing.JLabel();
         FondoPrincipal = new javax.swing.JLabel();
 
@@ -98,28 +108,22 @@ public class Inicio extends javax.swing.JFrame {
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N
         jPanel1.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 130, -1));
 
-        btnAgendaHoy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAgendaHoy.png"))); // NOI18N
-        btnAgendaHoy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAgendaHoy.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAgendaHoyDisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAgendaDisa.png"))); // NOI18N
+        btnAgendaHoyDisa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAgendaHoyMouseClicked(evt);
+                btnAgendaHoyDisaMouseClicked(evt);
             }
         });
-        jPanel1.add(btnAgendaHoy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 270, 60));
-
-        btnAgendaHoyDisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAgendaDisa.png"))); // NOI18N
         jPanel1.add(btnAgendaHoyDisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 270, 60));
 
         btnCalendarioDisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnCalendarioDisabled.png"))); // NOI18N
+        btnCalendarioDisa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCalendarioDisa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCalendarioDisaMouseClicked(evt);
             }
         });
         jPanel1.add(btnCalendarioDisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 270, 60));
-
-        btnCalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnCalendario.png"))); // NOI18N
-        jPanel1.add(btnCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 270, 60));
 
         btnHistorialM1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnHistorialDisabled.png"))); // NOI18N
         btnHistorialM1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -164,44 +168,39 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        TablaReserva.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "#", "Fecha", "Horario", "Run", "Nombre Completo", "Estado"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        txtNuevo2.setForeground(new java.awt.Color(119, 119, 119));
+        txtNuevo2.setText("jPasswordField1");
+        txtNuevo2.setBorder(null);
+        txtNuevo2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNuevo2FocusGained(evt);
             }
         });
-        TablaReserva.setFocusable(false);
-        TablaReserva.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        TablaReserva.setRowHeight(25);
-        TablaReserva.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TablaReservaMouseClicked(evt);
+        jPanel2.add(txtNuevo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, 290, 30));
+
+        txtPassActual.setForeground(new java.awt.Color(119, 119, 119));
+        txtPassActual.setText("jPasswordField1");
+        txtPassActual.setBorder(null);
+        txtPassActual.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPassActualFocusGained(evt);
             }
         });
-        jScrollPane1.setViewportView(TablaReserva);
+        jPanel2.add(txtPassActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 290, 30));
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 900, 440));
+        txtNuevo1.setForeground(new java.awt.Color(119, 119, 119));
+        txtNuevo1.setText("jPasswordField1");
+        txtNuevo1.setBorder(null);
+        txtNuevo1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNuevo1FocusGained(evt);
+            }
+        });
+        jPanel2.add(txtNuevo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 290, 30));
 
         lblAgenda.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         lblAgenda.setForeground(new java.awt.Color(68, 68, 68));
-        lblAgenda.setText("Agenda Hoy");
+        lblAgenda.setText("Configuración");
         lblAgenda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAgenda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -209,6 +208,21 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
         jPanel2.add(lblAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 70, 90, 20));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cActual.png"))); // NOI18N
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 350, 80));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cNueva.png"))); // NOI18N
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, 330, 70));
+
+        btnGuardarCambios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/guardar cambios.png"))); // NOI18N
+        btnGuardarCambios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardarCambios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGuardarCambiosMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnGuardarCambios, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 450, -1, -1));
 
         jSeparator1.setForeground(new java.awt.Color(68, 68, 68));
         jSeparator1.setToolTipText("");
@@ -219,18 +233,58 @@ public class Inicio extends javax.swing.JFrame {
         homeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/home.png"))); // NOI18N
         jPanel2.add(homeIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 60, 60, 60));
 
+        Titulo2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        Titulo2.setForeground(new java.awt.Color(68, 68, 68));
+        Titulo2.setText("Información del Odontólogo");
+        jPanel2.add(Titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 310, 30));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cNueva.png"))); // NOI18N
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 270, 330, 70));
+
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel8.setText("Nombre Usuario:");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 140, 30));
+
+        lblUsername.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jPanel2.add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 200, 30));
+
+        jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel10.setText("Correo:");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 140, 30));
+
+        lblCorreo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jPanel2.add(lblCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 210, 30));
+
+        jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel9.setText("Nombre:");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 140, 30));
+
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel5.setText("Run:");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 140, 30));
+
+        jSeparator4.setForeground(new java.awt.Color(68, 68, 68));
+        jSeparator4.setToolTipText("");
+        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 270, 10));
+
+        lblRun.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jPanel2.add(lblRun, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 210, 30));
+
+        lblNombreOdo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jPanel2.add(lblNombreOdo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 210, 30));
+
+        FondoMedio3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondo.png"))); // NOI18N
+        FondoMedio3.setText("jLabel1");
+        jPanel2.add(FondoMedio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 420, 210));
+
         Titulo.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         Titulo.setForeground(new java.awt.Color(68, 68, 68));
-        Titulo.setText("Lista de Pacientes Hoy");
-        jPanel2.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 400, 60));
-
-        FondoMedio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondo.png"))); // NOI18N
-        FondoMedio.setText("jLabel1");
-        jPanel2.add(FondoMedio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 1000, 400));
+        Titulo.setText("Configuración");
+        jPanel2.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 390, 60));
 
         FondoMedio1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondo.png"))); // NOI18N
         FondoMedio1.setText("jLabel1");
-        jPanel2.add(FondoMedio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 1000, 450));
+        jPanel2.add(FondoMedio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, 420, 450));
 
         FondoPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondoCompleto.png"))); // NOI18N
         jPanel2.add(FondoPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1089, 800));
@@ -244,36 +298,17 @@ public class Inicio extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         odontologo = (new OdontologoDAO()).buscar(id_odontologo);
-        lblNombreOdontologo.setText(odontologo.getNombres() + " " + odontologo.getApellidos());
+        lblNombreOdontologo.setText(odontologo.nombreCompleto());
+        lblCorreo.setText(odontologo.getCorreo());
+        lblNombreOdo.setText(odontologo.nombreCompleto());
+        lblRun.setText(odontologo.getRun());
+        lblUsername.setText(odontologo.getUsername());
     }//GEN-LAST:event_formWindowActivated
 
     private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnSalirMouseClicked
-
-    private void TablaReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaReservaMouseClicked
-        // hacer doble click
-        DefaultTableModel modelo=(DefaultTableModel) TablaReserva.getModel(); 
-        if(evt.getClickCount()==2){
-//            JOptionPane.showMessageDialog(rootPane, "has tocado" + TablaReserva.getSelectedRow());
-            int x = TablaReserva.getSelectedRow(); //Busco la posicion de la fila
-            int y=0; // 0 es porque se que en la posicion de la columna 0 tengo los rut
-
-            int id = (int) modelo.getValueAt(x, y); // Busco el elemento con las coordenadas X,Y
-            ReservaHora r = (new ReservaHoraDAO()).buscar(id);
-        
-            System.out.println(r.toString());
-            
-            Paciente paciente = new Paciente();
-            paciente.id_odontologo = id_odontologo;
-            paciente.id_reservar_hora = r.getId_reservar_hora();
-            paciente.setVisible(true);
-            this.setVisible(false);
-            
-        }
-        
-    }//GEN-LAST:event_TablaReservaMouseClicked
 
     private void btnHistorialM1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistorialM1MouseClicked
         // TODO add your handling code here:
@@ -283,21 +318,29 @@ public class Inicio extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnHistorialM1MouseClicked
 
-    private void btnAgendaHoyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgendaHoyMouseClicked
-        // TODO add your handling code here:
-        Inicio i = new Inicio();
-        i.id_odontologo = id_odontologo;
-        i.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnAgendaHoyMouseClicked
-
     private void lblAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgendaMouseClicked
         // TODO add your handling code here:
-        Inicio i = new Inicio();
+        Calendario i = new Calendario();
         i.id_odontologo = id_odontologo;
         i.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_lblAgendaMouseClicked
+
+    private void btnConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseClicked
+        // TODO add your handling code here:
+        Configuracion i = new Configuracion();
+        i.id_odontologo = id_odontologo;
+        i.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnConfiguracionMouseClicked
+
+    private void btnAgendaHoyDisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgendaHoyDisaMouseClicked
+        // TODO add your handling code here:
+        Inicio i = new Inicio();
+        i.id_odontologo = id_odontologo;
+        i.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAgendaHoyDisaMouseClicked
 
     private void btnCalendarioDisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalendarioDisaMouseClicked
         // TODO add your handling code here:
@@ -307,13 +350,23 @@ public class Inicio extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnCalendarioDisaMouseClicked
 
-    private void btnConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseClicked
+    private void txtNuevo2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevo2FocusGained
         // TODO add your handling code here:
-        Configuracion i = new Configuracion();
-        i.id_odontologo = id_odontologo;
-        i.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnConfiguracionMouseClicked
+        txtNuevo2.setText("");
+    }//GEN-LAST:event_txtNuevo2FocusGained
+
+    private void txtPassActualFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPassActualFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPassActualFocusGained
+
+    private void txtNuevo1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevo1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNuevo1FocusGained
+
+    private void btnGuardarCambiosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarCambiosMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnGuardarCambiosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -332,97 +385,66 @@ public class Inicio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Inicio().setVisible(true);
+                new Configuracion().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel FondoMedio;
     private javax.swing.JLabel FondoMedio1;
+    private javax.swing.JLabel FondoMedio3;
     private javax.swing.JLabel FondoPrincipal;
-    private javax.swing.JTable TablaReserva;
     private javax.swing.JLabel Titulo;
+    private javax.swing.JLabel Titulo2;
     private javax.swing.JLabel Vertical;
     private javax.swing.JLabel Vertical1;
-    private javax.swing.JLabel btnAgendaHoy;
     private javax.swing.JLabel btnAgendaHoyDisa;
-    private javax.swing.JLabel btnCalendario;
     private javax.swing.JLabel btnCalendarioDisa;
     private javax.swing.JLabel btnConfiguracion;
+    private javax.swing.JLabel btnGuardarCambios;
     private javax.swing.JLabel btnHistorialM;
     private javax.swing.JLabel btnHistorialM1;
     private javax.swing.JLabel btnSalir;
     private javax.swing.JLabel homeIcon;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel lblAgenda;
+    private javax.swing.JLabel lblCorreo;
+    private javax.swing.JLabel lblNombreOdo;
     private javax.swing.JLabel lblNombreOdontologo;
+    private javax.swing.JLabel lblRun;
+    private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel logo;
+    private javax.swing.JPasswordField txtNuevo1;
+    private javax.swing.JPasswordField txtNuevo2;
+    private javax.swing.JPasswordField txtPassActual;
     // End of variables declaration//GEN-END:variables
 
-    private void actualizarTabla() {
-        DefaultTableModel modelo = (DefaultTableModel) TablaReserva.getModel();
-        modelo.setRowCount(0);
-        
-        
-//         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-         
-         DateFormat hoy = new SimpleDateFormat("yyyy-MM-dd");
-         DateFormat formato = new SimpleDateFormat("dd-MM-YYYY");
-//         DateFormat dateFormat2 = new SimpleDateFormat("dd-MM-yyyy");
-         Date date = new Date();
-         System.out.println(hoy.toString());
-
-        String fecha_hoy = hoy.format(date);
-        ArrayList<ReservaHora> arrayReserva = new ArrayList<>();
-        try {
-            arrayReserva = (new ReservaHoraDAO()).mostrarPorFecha(fecha_hoy);
-            
-            Object[] columna = new Object[6];
-            
-            for (ReservaHora r: arrayReserva) {
-                columna[0] = r.getId_reservar_hora();
-                columna[1] = formato.format(date);
-                columna[2] = (new HorarioDAO()).buscar(r.getId_horario()).getHorario();
-                columna[3] = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getRut();
-                columna[4] = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getNombreCompleto();
-                if(r.getId_estado_reserva()==0){
-                    columna[5] = "Cancelado";
-                }else if (r.getId_estado_reserva()==1) {
-                    columna[5] = "Pendiente";
-                }else if(r.getId_estado_reserva()==2){
-                    columna[5] = "Atendido";
-                }else{
-                    columna[5] = "No Asitió";
-                }
-                
-                
-                
-                
-                modelo.addRow(columna);
-                TablaReserva.setModel(modelo);
-            }
-            
-//            TablaReserva.setDefaultRenderer(TablaReserva.getColumnClass(2),colores);
-        } catch (Exception ex) {
-            System.out.println("Error " + ex.toString());
-        }
-    }
+    
 }

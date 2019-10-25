@@ -23,7 +23,7 @@ import procedimientos.ColorearFilas;
  *
  * @author MR-BM
  */
-public class Inicio extends javax.swing.JFrame {
+public class Calendario extends javax.swing.JFrame {
 
     /**
      * Creates new form Inicio
@@ -34,7 +34,7 @@ public class Inicio extends javax.swing.JFrame {
     //Colores
     ColorearFilas colores = new ColorearFilas();
     
-    public Inicio() {
+    public Calendario() {
         initComponents();
         setTitle("Linda Sonrisa");
         setLocationRelativeTo(null);
@@ -58,9 +58,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblNombreOdontologo = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
-        btnAgendaHoy = new javax.swing.JLabel();
         btnAgendaHoyDisa = new javax.swing.JLabel();
-        btnCalendarioDisa = new javax.swing.JLabel();
         btnCalendario = new javax.swing.JLabel();
         btnHistorialM1 = new javax.swing.JLabel();
         btnHistorialM = new javax.swing.JLabel();
@@ -98,27 +96,20 @@ public class Inicio extends javax.swing.JFrame {
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N
         jPanel1.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 130, -1));
 
-        btnAgendaHoy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAgendaHoy.png"))); // NOI18N
-        btnAgendaHoy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAgendaHoy.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAgendaHoyDisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAgendaDisa.png"))); // NOI18N
+        btnAgendaHoyDisa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAgendaHoyMouseClicked(evt);
+                btnAgendaHoyDisaMouseClicked(evt);
             }
         });
-        jPanel1.add(btnAgendaHoy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 270, 60));
-
-        btnAgendaHoyDisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAgendaDisa.png"))); // NOI18N
         jPanel1.add(btnAgendaHoyDisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 270, 60));
 
-        btnCalendarioDisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnCalendarioDisabled.png"))); // NOI18N
-        btnCalendarioDisa.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnCalendario.png"))); // NOI18N
+        btnCalendario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCalendarioDisaMouseClicked(evt);
+                btnCalendarioMouseClicked(evt);
             }
         });
-        jPanel1.add(btnCalendarioDisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 270, 60));
-
-        btnCalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnCalendario.png"))); // NOI18N
         jPanel1.add(btnCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 270, 60));
 
         btnHistorialM1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnHistorialDisabled.png"))); // NOI18N
@@ -201,7 +192,7 @@ public class Inicio extends javax.swing.JFrame {
 
         lblAgenda.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         lblAgenda.setForeground(new java.awt.Color(68, 68, 68));
-        lblAgenda.setText("Agenda Hoy");
+        lblAgenda.setText("Calendario");
         lblAgenda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAgenda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -221,8 +212,8 @@ public class Inicio extends javax.swing.JFrame {
 
         Titulo.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         Titulo.setForeground(new java.awt.Color(68, 68, 68));
-        Titulo.setText("Lista de Pacientes Hoy");
-        jPanel2.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 400, 60));
+        Titulo.setText("Calendario");
+        jPanel2.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 390, 60));
 
         FondoMedio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondo.png"))); // NOI18N
         FondoMedio.setText("jLabel1");
@@ -283,29 +274,29 @@ public class Inicio extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnHistorialM1MouseClicked
 
-    private void btnAgendaHoyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgendaHoyMouseClicked
-        // TODO add your handling code here:
-        Inicio i = new Inicio();
-        i.id_odontologo = id_odontologo;
-        i.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnAgendaHoyMouseClicked
-
     private void lblAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgendaMouseClicked
-        // TODO add your handling code here:
-        Inicio i = new Inicio();
-        i.id_odontologo = id_odontologo;
-        i.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_lblAgendaMouseClicked
-
-    private void btnCalendarioDisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalendarioDisaMouseClicked
         // TODO add your handling code here:
         Calendario i = new Calendario();
         i.id_odontologo = id_odontologo;
         i.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnCalendarioDisaMouseClicked
+    }//GEN-LAST:event_lblAgendaMouseClicked
+
+    private void btnAgendaHoyDisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgendaHoyDisaMouseClicked
+        // TODO add your handling code here:
+        Inicio i = new Inicio();
+        i.id_odontologo = id_odontologo;
+        i.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAgendaHoyDisaMouseClicked
+
+    private void btnCalendarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalendarioMouseClicked
+        // TODO add your handling code here:
+        Calendario i = new Calendario();
+        i.id_odontologo = id_odontologo;
+        i.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCalendarioMouseClicked
 
     private void btnConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseClicked
         // TODO add your handling code here:
@@ -332,20 +323,21 @@ public class Inicio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Calendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Calendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Calendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Calendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Inicio().setVisible(true);
+                new Calendario().setVisible(true);
             }
         });
     }
@@ -358,10 +350,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel Vertical;
     private javax.swing.JLabel Vertical1;
-    private javax.swing.JLabel btnAgendaHoy;
     private javax.swing.JLabel btnAgendaHoyDisa;
     private javax.swing.JLabel btnCalendario;
-    private javax.swing.JLabel btnCalendarioDisa;
     private javax.swing.JLabel btnConfiguracion;
     private javax.swing.JLabel btnHistorialM;
     private javax.swing.JLabel btnHistorialM1;

@@ -5,7 +5,9 @@
  */
 package view;
 
+import dao.OdontologoDAO;
 import javax.swing.JFrame;
+import modelo.Odontologo;
 import procedimientos.Encryptar;
 
 /**
@@ -112,6 +114,11 @@ public class IniciarSesion extends javax.swing.JFrame {
         jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 570, 140, 40));
 
         btnOlvidadoContr.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOlvidadoContr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOlvidadoContrMouseClicked(evt);
+            }
+        });
         jPanel1.add(btnOlvidadoContr, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 190, 20));
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Login2.png"))); // NOI18N
@@ -143,41 +150,39 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     private void btnEntrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrar2ActionPerformed
         // TODO add your handling code here:
-//        String username = txtUsername.getText();
-//        char[] password = txtPassword.getPassword();
-//        String pass = new String(password);
-//
-//        lblError1.setVisible(false);
-//        lblError2.setVisible(false);
-        
-        Inicio v = new Inicio();
-        v.setVisible(true);
-        this.setVisible(false);
+        String username = txtUsername.getText();
+        char[] password = txtPassword.getPassword();
+        String pass = new String(password);
+        lblError1.setVisible(false);
+        lblError2.setVisible(false);        
+       
 
-//        try {
-//            String p = Encryptar.encryptar(pass);
-//            Users u = (new UsersDAO()).buscarUsername(username);
-//            if(u !=null){
-//                if(username.equals(u.getUsername()) & p.equals(u.getPassword())){
-//                    Home v = new Home();
-//                    v.nombre = u.getNombres() + " " + u.getApellidos();
-//                    v.setVisible(true);
-//                    this.setVisible(false);
-//                }else{
-//                    lblError1.setVisible(true);
-//                    lblError2.setVisible(false);
-//                    //                    System.out.println("Error");
-//                }
-//            }else{
-//                lblError1.setVisible(false);
-//                lblError2.setVisible(true);
-//            }
-//
-//        } catch (NoSuchAlgorithmException ex) {
-//            //            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//            lblError1.setVisible(true);
-//            lblError2.setVisible(false);
-//        }
+        try {
+            String p = Encryptar.encryptar(pass);
+            Odontologo o = (new OdontologoDAO()).buscarAcceso(username);
+            System.out.println(p);
+            System.out.println(o.getPassword());
+            if(o !=null){
+                if(p.equals(o.getPassword())){
+                    Inicio i = new Inicio();
+                    i.id_odontologo = o.getId_odontologo();
+                    i.setVisible(true);
+                    this.setVisible(false);
+                }else{
+                    lblError1.setVisible(true);
+                    lblError2.setVisible(false);
+                    //                    System.out.println("Error");
+                }
+            }else{
+                lblError1.setVisible(false);
+                lblError2.setVisible(true);
+            }
+
+        } catch (Exception ex) {
+            //            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            lblError1.setVisible(true);
+            lblError2.setVisible(false);
+        }
 
     }//GEN-LAST:event_btnEntrar2ActionPerformed
 
@@ -185,6 +190,13 @@ public class IniciarSesion extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnSalirMouseClicked
+
+    private void btnOlvidadoContrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOlvidadoContrMouseClicked
+        // TODO add your handling code here:
+        Recuperar v = new Recuperar();
+        v.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnOlvidadoContrMouseClicked
 
     /**
      * @param args the command line arguments
