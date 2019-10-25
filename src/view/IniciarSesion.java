@@ -6,6 +6,7 @@
 package view;
 
 import dao.OdontologoDAO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import modelo.Odontologo;
 import procedimientos.Encryptar;
@@ -28,6 +29,8 @@ public class IniciarSesion extends javax.swing.JFrame {
         setVisible(true);            
         lblError1.setVisible(false);
         lblError2.setVisible(false);
+        
+        this.setIconImage(new ImageIcon(getClass().getResource("/img/icono.png")).getImage());
     }
 
     /**

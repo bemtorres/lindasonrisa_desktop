@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import modelo.Odontologo;
@@ -43,6 +44,8 @@ public class Inicio extends javax.swing.JFrame {
         setVisible(true);
         
         actualizarTabla();
+        
+        this.setIconImage(new ImageIcon(getClass().getResource("/img/icono.png")).getImage());
         
     }
 

@@ -5,21 +5,13 @@
  */
 package view;
 
-import dao.FichaClienteDAO;
-import dao.HorarioDAO;
 import dao.OdontologoDAO;
-import dao.ReservaHoraDAO;
 import java.security.NoSuchAlgorithmException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.table.DefaultTableModel;
 import modelo.Odontologo;
-import modelo.ReservaHora;
 import procedimientos.ColorearFilas;
 import procedimientos.Encryptar;
 
@@ -44,7 +36,8 @@ public class Configuracion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);    
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);        
+        setVisible(true);   
+        this.setIconImage(new ImageIcon(getClass().getResource("/img/icono.png")).getImage());     
     }
 
     /**

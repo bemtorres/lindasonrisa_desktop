@@ -5,7 +5,11 @@
  */
 package view;
 
+import conexion.ConectarMail;
+import dao.OdontologoDAO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import modelo.Odontologo;
 
 /**
  *
@@ -20,11 +24,14 @@ public class Recuperar extends javax.swing.JFrame {
         initComponents();
         setTitle("Linda Sonrisa");
         setLocationRelativeTo(null);
-        setResizable(false);    
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);            
+        setVisible(true);
         lblError1.setVisible(false);
-        lblError2.setVisible(false);
+        lblExito.setVisible(false);
+        lblError3.setVisible(false);
+        
+        this.setIconImage(new ImageIcon(getClass().getResource("/img/icono.png")).getImage());
     }
 
     /**
@@ -37,10 +44,11 @@ public class Recuperar extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblError2 = new javax.swing.JLabel();
+        lblExito = new javax.swing.JLabel();
         lblError1 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
         btnVolver = new javax.swing.JLabel();
+        lblError3 = new javax.swing.JLabel();
         btnEnviar = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
 
@@ -49,19 +57,19 @@ public class Recuperar extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblError2.setBackground(new java.awt.Color(243, 84, 93));
-        lblError2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblError2.setForeground(new java.awt.Color(243, 84, 93));
-        lblError2.setText("Usuario no existe. Contáctese con el administrador.");
-        lblError2.setToolTipText("");
-        jPanel1.add(lblError2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, -1, -1));
+        lblExito.setBackground(new java.awt.Color(243, 84, 93));
+        lblExito.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblExito.setForeground(new java.awt.Color(0, 153, 0));
+        lblExito.setText("Se ha enviado un correo.");
+        lblExito.setToolTipText("");
+        jPanel1.add(lblExito, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 490, -1, -1));
 
         lblError1.setBackground(new java.awt.Color(243, 84, 93));
         lblError1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblError1.setForeground(new java.awt.Color(243, 84, 93));
         lblError1.setText("Hemos tenido un problema. Intente Nuevamente.");
         lblError1.setToolTipText("");
-        jPanel1.add(lblError1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, -1, -1));
+        jPanel1.add(lblError1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, -1, 20));
 
         txtCorreo.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtCorreo.setForeground(new java.awt.Color(119, 119, 119));
@@ -81,6 +89,13 @@ public class Recuperar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 80, 50));
+
+        lblError3.setBackground(new java.awt.Color(243, 84, 93));
+        lblError3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblError3.setForeground(new java.awt.Color(243, 84, 93));
+        lblError3.setText("Usuario no existe. Contáctese con el administrador.");
+        lblError3.setToolTipText("");
+        jPanel1.add(lblError3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, -1, -1));
 
         btnEnviar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEnviar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -121,6 +136,43 @@ public class Recuperar extends javax.swing.JFrame {
 
     private void btnEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEnviarMouseClicked
         // TODO add your handling code here:
+        if (txtCorreo.getText() != null) {
+            if (txtCorreo.getText().length() > 0) {
+                Odontologo o = (new OdontologoDAO()).buscarCorreo(txtCorreo.getText());
+
+                if (o != null) {
+
+                    String[] abecedario = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+                    String texto = "";
+                    for (int i = 0; i < 4; i++) {
+                        int numRandon = (int) Math.round(Math.random() * 9);
+                        texto += abecedario[numRandon];
+                    }
+
+                    int estado = (new OdontologoDAO()).modificar(o);
+                    if (estado == 1) {
+                        String asunto = "Recuperación Contraseña";
+                        String titulo = "Estimado " + o.nombreCompleto();
+                        String mensaje = "   Su USUARIO es: <strong>" + o.getUsername() + "</strong>";
+                        mensaje += "<br>   Su nueva con CONTRASEÑA es: <strong>" + texto + "</strong>";
+                        String mensajeFinal = new ConectarMail().formatoCorreoInterno(titulo, mensaje);
+                        int estado2 = new ConectarMail().enviarMensaje(o.getCorreo(), "", "", mensajeFinal, asunto, 0);
+                        lblError1.setVisible(false);
+                        lblError3.setVisible(false);
+                        lblExito.setVisible(true);
+                    } else {
+                        lblError1.setVisible(true);
+                        lblError3.setVisible(false);                        
+                        lblExito.setVisible(false);
+                    }
+
+                }else{
+                    lblError1.setVisible(false);
+                    lblError3.setVisible(true);                        
+                    lblExito.setVisible(false);
+                }
+            }
+        }
     }//GEN-LAST:event_btnEnviarMouseClicked
 
     /**
@@ -165,7 +217,8 @@ public class Recuperar extends javax.swing.JFrame {
     private javax.swing.JLabel btnVolver;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblError1;
-    private javax.swing.JLabel lblError2;
+    private javax.swing.JLabel lblError3;
+    private javax.swing.JLabel lblExito;
     private javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables
 }

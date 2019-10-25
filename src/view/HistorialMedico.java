@@ -11,6 +11,7 @@ import dao.OdontologoDAO;
 import dao.ReservaHoraDAO;
 import dao.ServicioDAO;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -41,6 +42,7 @@ public class HistorialMedico extends javax.swing.JFrame {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        this.setIconImage(new ImageIcon(getClass().getResource("/img/icono.png")).getImage());
     }
 
     /**
