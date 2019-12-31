@@ -10,6 +10,8 @@ import dao.HorarioDAO;
 import dao.OdontologoDAO;
 import dao.ReservaHoraDAO;
 import dao.ServicioDAO;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ImageIcon;
@@ -247,7 +249,7 @@ public class Calendario extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         odontologo = (new OdontologoDAO()).buscar(id_odontologo);
-        lblNombreOdontologo.setText(odontologo.getNombres() + " " + odontologo.getApellidos());
+        lblNombreOdontologo.setText(odontologo.nombreCompleto());
     }//GEN-LAST:event_formWindowActivated
 
     private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
@@ -427,7 +429,12 @@ public class Calendario extends javax.swing.JFrame {
 
             for (ReservaHora r : arrayReserva) {
                 columna[0] = r.getId_reservar_hora();
-                columna[1] = r.getFecha_reserva();
+                // FECHA
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = format.parse(r.getFecha_reserva());        
+                DateFormat formatNuevo = new SimpleDateFormat("dd-MM-yyyy");
+                String fechaNueva = formatNuevo.format(date);
+                columna[1] = fechaNueva;
                 columna[2] = (new HorarioDAO()).buscar(r.getId_horario()).getHorario();
                 columna[3] = (new ServicioDAO()).buscar(r.getId_servicio()).getNombre_servicio();
                 columna[4] = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getRut();

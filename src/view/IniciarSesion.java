@@ -173,8 +173,8 @@ public class IniciarSesion extends javax.swing.JFrame {
         try {
             String p = Encryptar.encryptar(pass);
             Odontologo o = (new OdontologoDAO()).buscarAcceso(username);
-            System.out.println(p);
-            System.out.println(o.getPassword());
+//            System.out.println(p);
+//            System.out.println(o.getPassword());
             if(o !=null){
                 if(p.equals(o.getPassword())){
                     Inicio i = new Inicio();

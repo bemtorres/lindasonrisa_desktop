@@ -9,6 +9,7 @@ import dao.FichaClienteDAO;
 import dao.HorarioDAO;
 import dao.OdontologoDAO;
 import dao.ReservaHoraDAO;
+import dao.ServicioDAO;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -172,14 +173,14 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "#", "Fecha", "Horario", "Run", "Nombre Completo", "Estado"
+                "#", "Fecha", "Horario", "Servicio", "Run", "Nombre Completo", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -266,7 +267,7 @@ public class Inicio extends javax.swing.JFrame {
             int id = (int) modelo.getValueAt(x, y); // Busco el elemento con las coordenadas X,Y
             ReservaHora r = (new ReservaHoraDAO()).buscar(id);
         
-            System.out.println(r.toString());
+//            System.out.println(r.toString());
             
             Paciente paciente = new Paciente();
             paciente.id_odontologo = id_odontologo;
@@ -391,33 +392,31 @@ public class Inicio extends javax.swing.JFrame {
          DateFormat formato = new SimpleDateFormat("dd-MM-YYYY");
 //         DateFormat dateFormat2 = new SimpleDateFormat("dd-MM-yyyy");
          Date date = new Date();
-         System.out.println(hoy.toString());
+//         System.out.println(hoy.toString());
 
         String fecha_hoy = hoy.format(date);
         ArrayList<ReservaHora> arrayReserva = new ArrayList<>();
         try {
             arrayReserva = (new ReservaHoraDAO()).mostrarPorFecha(fecha_hoy);
             
-            Object[] columna = new Object[6];
+            Object[] columna = new Object[7];
             
             for (ReservaHora r: arrayReserva) {
                 columna[0] = r.getId_reservar_hora();
                 columna[1] = formato.format(date);
-                columna[2] = (new HorarioDAO()).buscar(r.getId_horario()).getHorario();
-                columna[3] = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getRut();
-                columna[4] = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getNombreCompleto();
+                columna[2] = (new HorarioDAO()).buscar(r.getId_horario()).getHorario();                
+                columna[3] = (new ServicioDAO()).buscar(r.getId_servicio()).getNombre_servicio();
+                columna[4] = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getRut();
+                columna[5] = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getNombreCompleto();
                 if(r.getId_estado_reserva()==0){
-                    columna[5] = "Cancelado";
+                    columna[6] = "Cancelado";
                 }else if (r.getId_estado_reserva()==1) {
-                    columna[5] = "Pendiente";
+                    columna[6] = "Pendiente";
                 }else if(r.getId_estado_reserva()==2){
-                    columna[5] = "Atendido";
+                    columna[6] = "Atendido";
                 }else{
-                    columna[5] = "No Asistió";
-                }
-                
-                
-                
+                    columna[6] = "No Asistió";
+                }                
                 
                 modelo.addRow(columna);
                 TablaReserva.setModel(modelo);

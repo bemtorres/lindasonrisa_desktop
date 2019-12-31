@@ -5,11 +5,10 @@
  */
 package lindasonrisa_desktop;
 
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -20,8 +19,16 @@ public class NewMain {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args){
-    
+    public static void main(String[] args) throws ParseException{
+              
+        String fecha = "2019-10-25";
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = format.parse(fecha);        
+        DateFormat formatNuevo = new SimpleDateFormat("dd-MM-yyyy");
+        String fechaNueva = formatNuevo.format(date);
+        
+        
+        System.out.println(fechaNueva); 
     }
   
     

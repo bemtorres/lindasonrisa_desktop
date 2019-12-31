@@ -5,21 +5,28 @@
  */
 package view;
 
+import dao.BoletaServicioDAO;
 import dao.ComunaDAO;
+import dao.DetalleServicioDAO;
 import dao.FichaClienteDAO;
 import dao.HorarioDAO;
 import dao.OdontologoDAO;
+import dao.ProductoDAO;
 import dao.RegionDAO;
 import dao.ReservaHoraDAO;
 import dao.ServicioDAO;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import modelo.BoletaServicio;
+import modelo.DetalleServicio;
 import modelo.FichaCliente;
 import modelo.Odontologo;
+import modelo.Producto;
 import modelo.ReservaHora;
 import procedimientos.ColorearFilas;
 
@@ -352,10 +359,14 @@ public class Paciente extends javax.swing.JFrame {
         if(r.getComentario()!=null){
             if(r.getComentario().length()>0){
                 txtComentario.setText(r.getComentario());
-            }
-           
-        }      
-
+            }           
+        }    
+        
+        if(r.getId_estado_reserva()==2){
+            btnGuardaCambios.setVisible(false);
+            txtComentario.setEditable(false);
+            cbEstadoServicio.setEditable(false);
+        }
         
     }//GEN-LAST:event_formWindowActivated
 
@@ -387,7 +398,39 @@ public class Paciente extends javax.swing.JFrame {
         }
      
         
-        if(estado==1){
+        if(estado==1){        
+            //Algoritmo de descuento
+            
+            //Si fue atendido
+            if(r.getId_estado_reserva()==2){
+                ArrayList<DetalleServicio> detallesServicios = (new DetalleServicioDAO()).mostrarPorServicio(r.getId_servicio());
+            
+                for (DetalleServicio d : detallesServicios) {
+                    Producto p = (new ProductoDAO()).buscar(d.getId_producto());
+                    int total = p.getStock() - d.getCant();
+                    p.setStock(total);
+                    (new ProductoDAO()).modificar(p);
+                }
+                int id_boleta_servicio = 0;
+                int id_ficha_cliente = r.getId_ficha_cliente();
+                String run_cliente = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getRut();
+                String nombre_cliente = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getNombreCompleto();
+                String correo_cliente = (new FichaClienteDAO()).buscar(r.getId_ficha_cliente()).getCorreo();
+                
+                String nombre_odontologo = (new OdontologoDAO()).buscar(r.getId_odontologo()).nombreCompleto();
+                String correo_odontologo  = (new OdontologoDAO()).buscar(r.getId_odontologo()).getCorreo();
+                String fecha_servicio = r.getFecha_reserva();
+                int id_horario = r.getId_horario();
+                String horario = (new HorarioDAO()).buscar(r.getId_horario()).getHorario();
+                int id_servicio = r.getId_servicio();
+                String nombre_servicio = (new ServicioDAO()).buscar(r.getId_servicio()).getNombre_servicio();
+                BoletaServicio boleta= new BoletaServicio(id_boleta_servicio, id_ficha_cliente, run_cliente, nombre_cliente, correo_cliente, id_odontologo, nombre_odontologo, correo_odontologo, fecha_servicio, id_horario, horario, id_servicio, nombre_servicio);
+                
+                int e =(new BoletaServicioDAO()).agregar(boleta);
+                System.out.println("funciono" + e);
+            }
+            
+            
             JOptionPane.showMessageDialog(rootPane, "Se ha actualizado","Linda Sonrisa",JOptionPane.INFORMATION_MESSAGE);
         }else{
             JOptionPane.showMessageDialog(rootPane, "No se ha actualizado","Linda Sonrisa",JOptionPane.WARNING_MESSAGE);

@@ -8,10 +8,8 @@ package dao;
 import conexion.ConectarMysql;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import modelo.ReservaHora;
 
 /**
@@ -106,7 +104,7 @@ public class ReservaHoraDAO {
                 id_odontologo = results.getInt("id_odontologo");
                 comentario = results.getString("comentario");
                 activo = results.getInt("activo");
-                System.out.println("id " + id_estado_reserva + " " + id_horario + " " + fecha_reserva);
+//                System.out.println("id " + id_estado_reserva + " " + id_horario + " " + fecha_reserva);
                 arrayReserva.add(new ReservaHora(id_reservar_hora, id_centro, fecha_reserva, id_horario, id_estado_reserva, id_servicio, id_ficha_cliente, id_odontologo, comentario, activo));
             }
             connection.close();
@@ -151,7 +149,7 @@ public class ReservaHoraDAO {
                 id_odontologo = results.getInt("id_odontologo");
                 comentario = results.getString("comentario");
                 activo = results.getInt("activo");
-                System.out.println("id " + id_estado_reserva + " " + id_horario + " " + fecha_reserva);
+//                System.out.println("id " + id_estado_reserva + " " + id_horario + " " + fecha_reserva);
                 arrayReserva.add(new ReservaHora(id_reservar_hora, id_centro, fecha_reserva, id_horario, id_estado_reserva, id_servicio, id_ficha_cliente, id_odontologo, comentario, activo));
             }
             connection.close();

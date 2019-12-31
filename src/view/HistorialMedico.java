@@ -10,7 +10,10 @@ import dao.HorarioDAO;
 import dao.OdontologoDAO;
 import dao.ReservaHoraDAO;
 import dao.ServicioDAO;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -422,11 +425,14 @@ public class HistorialMedico extends javax.swing.JFrame {
 //                evt.consume(); 
 //            }
 //        }
-//        
+//       
         // Verificar si la tecla pulsada no es un digito
         if (((caracter < '0') || (caracter > '9')) && (caracter != '\b') && (caracter != 'K')) {
+            
             evt.consume();  // ignorar el evento de teclado
         }
+          if (txtRut.getText().length() >= 9 ) // limit textfield to 3 characters
+            evt.consume(); 
     }//GEN-LAST:event_txtRutKeyTyped
 
     /**
@@ -509,7 +515,14 @@ public class HistorialMedico extends javax.swing.JFrame {
 
             for (ReservaHora r : arrayReserva) {
                 columna[0] = r.getId_reservar_hora();
-                columna[1] = r.getFecha_reserva();
+                
+                // FECHA
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = format.parse( r.getFecha_reserva());        
+                DateFormat formatNuevo = new SimpleDateFormat("dd-MM-yyyy");
+                String fechaNueva = formatNuevo.format(date);
+                columna[1] = fechaNueva;
+                
                 columna[2] = (new HorarioDAO()).buscar(r.getId_horario()).getHorario();
                 columna[3] = (new ServicioDAO()).buscar(r.getId_servicio()).getNombre_servicio();
                 if (r.getId_estado_reserva() == 0) {
